@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Domains\Orders\Models\Order;
 use App\Filament\Resources\OrderResource\Pages;
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
@@ -169,13 +170,13 @@ class OrderResource extends Resource
                             ->when($data['until'], fn ($q) => $q->whereDate('appointment_datetime', '<=', $data['until']));
                     }),
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                Actions\ViewAction::make(),
+                Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ])
             ->defaultSort('created_at', 'desc');

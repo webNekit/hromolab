@@ -6,6 +6,7 @@ namespace App\Filament\LabPanel\Resources;
 
 use App\Domains\Orders\Models\Order;
 use App\Filament\LabPanel\Resources\OrderResource\Pages;
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
@@ -121,8 +122,8 @@ class OrderResource extends Resource
                     ->relationship('laboratory', 'name')
                     ->label('Лаборатория'),
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make()
+            ->recordActions([
+                Actions\ViewAction::make()
                     ->label('Просмотр'),
             ])
             ->defaultSort('appointment_datetime', 'desc');

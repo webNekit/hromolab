@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Domains\Laboratories\Models\Laboratory;
 use App\Filament\Resources\LaboratoryResource\Pages;
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
@@ -115,12 +116,12 @@ class LaboratoryResource extends Resource
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_active'),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

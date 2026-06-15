@@ -6,9 +6,11 @@ namespace App\Filament\LabPanel\Resources;
 
 use App\Domains\Results\Models\MedicalResult;
 use App\Filament\LabPanel\Resources\MedicalResultResource\Pages;
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -96,7 +98,7 @@ class MedicalResultResource extends Resource
                         ->hint('Введите {value}, {unit}, {reference}')
                         ->helperText('Формат значения: {"value": 145, "unit": "g/L", "reference": "120-160"}')
                         ->disabled(fn (?MedicalResult $record): bool => $record?->isVerified() ?? false)
-                        ->visible(fn (Forms\Get $get): bool => ! $get('use_dynamic_form')),
+                        ->visible(fn (Get $get): bool => ! $get('use_dynamic_form')),
                     Forms\Components\Toggle::make('use_dynamic_form')
                         ->label('Использовать динамическую форму')
                         ->helperText('Форма с полями по референсным значениям')
@@ -142,10 +144,10 @@ class MedicalResultResource extends Resource
                         false: fn (Builder $query): Builder => $query->whereNull('verified_at'),
                     ),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
+            ->recordActions([
+                Actions\EditAction::make()
                     ->label('Ввод результатов'),
-                Tables\Actions\Action::make('download_pdf')
+                Actions\Action::make('download_pdf')
                     ->label('PDF')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->visible(fn (MedicalResult $record): bool => $record->pdf_path !== null)

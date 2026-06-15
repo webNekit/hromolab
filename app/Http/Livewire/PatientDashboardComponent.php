@@ -119,7 +119,7 @@ class PatientDashboardComponent extends Component
     public function orders(): Collection
     {
         return Order::forUser(auth()->id())
-            ->with(['items.analysis', 'laboratory', 'statusHistories'])
+            ->with(['items.analysis', 'items.medicalResult', 'laboratory', 'statusHistories'])
             ->orderByDesc('appointment_datetime')
             ->get();
     }

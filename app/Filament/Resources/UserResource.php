@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Domains\Auth\Models\User;
 use App\Filament\Resources\UserResource\Pages;
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
@@ -87,12 +88,12 @@ class UserResource extends Resource
                     ->relationship('roles', 'name')
                     ->multiple(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
